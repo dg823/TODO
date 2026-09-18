@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+
+<html lang="ko"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>TODO App</title> <link rel="stylesheet" href="style.css"> </head> <body>
+
+<div class="app">
+
+    <!-- 헤더 -->
+    <header class="app-header">
+        <div class="header-title">
+            <h1>TODO</h1>
+            <span id="todo-count">0</span>
+        </div>
+
+        <div class="header-actions">
+            <button id="theme-toggle" type="button" aria-label="테마 변경">
+                🌙
+            </button>
+        </div>
+    </header>
+
+
+    <!-- TODO 입력 -->
+    <section class="todo-input-section">
+        <form id="todo-form">
+            <input
+                type="text"
+                id="todo-input"
+                placeholder="할 일을 입력하세요"
+                autocomplete="off"
+                maxlength="200"
+            >
+            <button type="submit" id="add-todo">
+                추가
+            </button>
+        </form>
+    </section>
+
+
+    <!-- 검색 -->
+    <section class="search-section">
+        <label for="search-input" class="sr-only">TODO 검색</label>
+
+        <input
+            type="search"
+            id="search-input"
+            placeholder="할 일 검색..."
+            autocomplete="off"
+        >
+
+        <button
+            type="button"
+            id="clear-search"
+            aria-label="검색어 지우기"
+        >
+            ×
+        </button>
+    </section>
+
+
+    <!-- 필터 -->
+    <nav class="filter-nav" aria-label="TODO 필터">
+        <button
+            type="button"
+            class="filter-btn active"
+            data-filter="all"
+        >
+            전체
+        </button>
+
+        <button
+            type="button"
+            class="filter-btn"
+            data-filter="active"
+        >
+            미완료
+        </button>
+
+        <button
+            type="button"
+            class="filter-btn"
+            data-filter="completed"
+        >
+            완료
+        </button>
+    </nav>
+
+
+    <!-- 정렬 -->
+    <section class="sort-section">
+        <label for="sort-select">정렬</label>
+
+        <select id="sort-select">
+            <option value="created-desc">최신순</option>
+            <option value="created-asc">오래된순</option>
+            <option value="completed">완료순</option>
+            <option value="active">미완료순</option>
+            <option value="manual">사용자 지정</option>
+        </select>
+    </section>
+
+
+    <!-- TODO 목록 -->
+    <main>
+        <section
+            id="todo-list"
+            class="todo-list"
+            aria-label="TODO 목록"
+        >
+            <!-- JavaScript로 TODO가 추가되는 영역 -->
+        </section>
+
+        <!-- TODO가 없을 때 -->
+        <div
+            id="empty-state"
+            class="empty-state"
+            hidden
+        >
+            <div class="empty-icon">✓</div>
+            <h2>할 일이 없습니다</h2>
+            <p>새로운 TODO를 추가해보세요.</p>
+        </div>
+    </main>
+
+
+    <!-- 일괄 작업 -->
+    <section class="bulk-actions">
+        <button
+            type="button"
+            id="complete-all"
+        >
+            전체 완료
+        </button>
+
+        <button
+            type="button"
+            id="uncomplete-all"
+        >
+            전체 완료 해제
+        </button>
+
+        <button
+            type="button"
+            id="delete-completed"
+        >
+            완료 항목 삭제
+        </button>
+
+        <button
+            type="button"
+            id="delete-all"
+            class="danger"
+        >
+            전체 삭제
+        </button>
+    </section>
+
+
+    <!-- 데이터 관리 -->
+    <section class="data-actions">
+        <h2>데이터 관리</h2>
+
+        <div class="data-buttons">
+            <button
+                type="button"
+                id="export-data"
+            >
+                내보내기
+            </button>
+
+            <label
+                for="import-data"
+                class="button"
+            >
+                가져오기
+            </label>
+
+            <input
+                type="file"
+                id="import-data"
+                accept=".json,application/json"
+                hidden
+            >
+
+            <button
+                type="button"
+                id="reset-data"
+                class="danger"
+            >
+                데이터 초기화
+            </button>
+        </div>
+    </section>
+
+
+    <!-- 상태 표시 -->
+    <footer class="app-footer">
+        <div id="status-message" role="status" aria-live="polite"></div>
+    </footer>
+
+</div>
+
+
+<!-- 삭제 확인 모달 -->
+<div
+    id="confirm-modal"
+    class="modal"
+    hidden
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="confirm-title"
+>
+    <div class="modal-content">
+
+        <h2 id="confirm-title">삭제하시겠습니까?</h2>
+
+        <p id="confirm-message">
+            이 작업은 되돌릴 수 없습니다.
+        </p>
+
+        <div class="modal-actions">
+            <button
+                type="button"
+                id="confirm-cancel"
+            >
+                취소
+            </button>
+
+            <button
+                type="button"
+                id="confirm-ok"
+                class="danger"
+            >
+                삭제
+            </button>
+        </div>
+
+    </div>
+</div>
+
+
+<!-- JS -->
+<script src="script.js"></script>
+
+</body> </html>
